@@ -2,16 +2,21 @@ import { Button} from 'antd'
 import { Link } from 'react-router-dom'
 import React, {useState} from 'react'
 
-export const AuthPage = () => {
+export const RegistrPage = () => {
     const [login, setLogin] = useState("")
     const [pass, setPass] = useState("")
+    const [pass2, setPass2] = useState("")
+    const [email, setEmail] = useState("")
+    const [validation, setValidation] = useState("")
 
     const callBackendAPI = async () => {
-        const response = await fetch('/login',{
+        const response = await fetch('/regist',{
             method: 'POST',
             body: JSON.stringify({
                 login: login,
-                pass: pass
+                pass: pass,
+                pass2: pass2,
+                email: email
             }),
             headers: {
                 'Content-type': 'application/json',
@@ -26,28 +31,18 @@ export const AuthPage = () => {
         return body;
     };
   
-  const onLogin = () => {
+  const onRegist = () => {
     callBackendAPI()
     .then(res => {
-        if (res.data !== '') {
-            alert(`${res.data}, вы успешно вошли!`)
-        }
-        
+        setValidation(res.data)
     })
     .catch(err => console.log(err));
   }
 
     return (<div style={{padding: "20px"}}> 
-        <div style={{display: "flex", "justifyContent":"space-between"}}>
-            <div style={{display: "flex", "gap": "15px", "marginBottom": "30px"}}>
-                <Link to="/geolocation">Информация о загрязнениях</Link>
-                <Link to="/about">О сервисе</Link>
-                <Link to="/error">Страница 404</Link>
-            </div>
-            <Link to="/registr">Регистрация</Link>
-        </div>
+        <Link to="/">← Назад</Link><br/>
         <div style={{display: "flex", "alignItems":"center", "justifContent":"center", "flexDirection": "column", gap:"10px"}}>
-            <h2>Авторизация</h2>
+            <h2>Регистрация</h2>
             <form style={{display: "flex", "flexDirection": "column", "alignItems": "flex-end"}}>
                 <label>Логин:
                     <input
@@ -63,8 +58,23 @@ export const AuthPage = () => {
                     onChange={(e) => setPass(e.target.value)}
                     />
                 </label>
+                <label>Повторный пароль:
+                    <input
+                    type="password" 
+                    value={pass2}
+                    onChange={(e) => setPass2(e.target.value)}
+                    />
+                </label>
+                <label>E-mail:
+                    <input
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
+                </label>
             </form>
-            <Button type="primary" onClick={() => onLogin()}>Войти</Button>
+            <Button type="primary" onClick={onRegist}>Зарегистрироваться</Button>
+            <p style={{color: "Red"}}>{validation}</p>
         </div>
     </div>)
 }
