@@ -11,6 +11,9 @@ import {
     Legend,
   } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
+import { addPollutionCoord,addPollutionList } from '../store/pollutionSlice'
+import { useDispatch,useSelector } from 'react-redux'
+import { getComponents, getCoord } from '../store/pollutionSelectors'
 
 ChartJS.register(
     CategoryScale,
@@ -24,7 +27,10 @@ ChartJS.register(
 
 export const GeolocationPage = () => {
     const [city, setCity] = useState("");
-    const [data, setData] = useState([]);
+    const dispatch = useDispatch()
+    const coord = useSelector(getCoord)
+    const data = useSelector(getComponents)
+
     const columns = [
         {
           title: 'Carbon monoxide, μg/m3',
@@ -116,7 +122,8 @@ export const GeolocationPage = () => {
     const onRequest = () => {
         getCityCoordinates()
         .then(res => {
-            setData(res.list ? res.list.map(item => ({
+            dispatch(addPollutionCoord(res.coord))
+            dispatch(addPollutionList(res.list ? res.list.map(item => ({
                 key: 1,
                 co: item.components.co,
                 no: item.components.no,
@@ -126,7 +133,7 @@ export const GeolocationPage = () => {
                 pm2_5: item.components.pm2_5,
                 pm10: item.components.pm10,
                 nh3: item.components.nh3
-            })) : [])
+            })) : []))
         })
         .catch(err => console.log('error:',err));
     }
@@ -144,6 +151,7 @@ export const GeolocationPage = () => {
                     onChange={(e) => setCity(e.target.value)}
                     />
                 </label>
+                <span>{coord && coord.length !==0 ? ` ${coord.lon} - ${coord.lat}`: ''}</span>
                 <br/>
                 <Button type="primary" onClick={() => onRequest()}>Запросить данные</Button>
             </form>
