@@ -141,7 +141,13 @@ export const GeolocationPage = () => {
 
     return (
         <div style={{padding: "20px"}}>
-            <Link to="/">← Назад</Link>
+            <div style={{display: "flex", "justifyContent":"space-between"}}>
+                <div style={{display: "flex", "gap": "15px", "marginBottom": "30px"}}>
+                    <Link to="/about">О сервисе</Link>
+                    <Link to="/error">Страница 404</Link>
+                </div>
+                <Link id="logout" to="/">Выйти</Link>
+            </div>
             <h2>Данные о загрязнении</h2>
             <form>
                 <label>Введите населенный пункт,город:
