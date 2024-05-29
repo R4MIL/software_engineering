@@ -1,0 +1,9 @@
+{
+  "name": "buttoncomponent-ramil-button",
+  "version": "1.0.1",
+  "description": "Кнопка",
+  "main": "index.js",
+  "author": "Ramil",
+  "license": "ISC",
+  "type":"module"
+}

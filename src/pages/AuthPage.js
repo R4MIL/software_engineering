@@ -1,4 +1,4 @@
-import { Button} from 'antd'
+import { Button } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import React, {useState} from 'react'
 
@@ -61,7 +61,7 @@ export const AuthPage = () => {
                     />
                 </label>
             </form>
-            <Button id="button-login" type="primary" onClick={() => onLogin()}>Войти</Button>
+            <Button name="button-login" type="primary" onClick={() => onLogin()}>Войти</Button>
         </div>
     </div>)
 }
