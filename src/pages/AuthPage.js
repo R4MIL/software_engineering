@@ -61,7 +61,7 @@ export const AuthPage = () => {
                     />
                 </label>
             </form>
-            <Button name="button-login" type="primary" onClick={() => onLogin()}>Войти</Button>
+            <Button id="button-login" type="primary" onClick={() => onLogin()}>Войти</Button>
         </div>
     </div>)
 }
