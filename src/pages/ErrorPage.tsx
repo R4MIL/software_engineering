@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-export const ErrorPage = () => {
+function ErrorPage() {
     return (
         <div style={{padding: "20px"}}>
             <Link to="/geolocation">← Назад</Link>
@@ -8,3 +8,5 @@ export const ErrorPage = () => {
         </div>
     )
 }
+
+export default ErrorPage;
